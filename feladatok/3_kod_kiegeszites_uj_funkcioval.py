@@ -37,21 +37,47 @@ class Tanfolyam:
         self.hallgatok.append(hallgato)
     def aktiv_hallgatok(self):
         return [h.nev for h in self.hallgatok if h.aktiv]
+
+
     def hallgato_keresese_nev_alapjan(self, nev):
-        # TODO: valositsd meg
-        pass
+        for hallgato in self.hallgatok:
+            if hallgato.nev == nev:
+                return hallgato
+        return None
+
+
     def atlag_teljesitmeny(self):
-        # TODO: valositsd meg
-        pass
+        if not self.hallgatok:
+            return 0
+        osszeg = 0
+        for h in self.hallgatok:
+            osszeg += h.pontszam
+        return osszeg / len(self.hallgatok)
+
+
     def inaktiv_hallgatok(self):
-        # TODO: valositsd meg
-        pass
+        return [h.nev for h in self.hallgatok if not h.aktiv]
+
+
     def torol_hallgato(self, nev):
-        # TODO: valositsd meg (ValueError, ha nem talalhato)
-        pass
+        for hallgato in self.hallgatok:
+            if hallgato.nev == nev:
+                self.hallgatok.remove(hallgato)
+                return
+        raise ValueError("Ez a hallgató nem létezik")
+
+
     def mentes_csv(self, fajlnev):
-        # TODO: valositsd meg
-        pass
+        with open(fajlnev, mode="w", newline="", encoding="utf-8") as fajl:
+            iro = csv.writer(fajl)
+            iro.writerow(["nev", "pontszam", "aktiv"])
+            for hallgato in self.hallgatok:
+                iro.writerow([
+                    hallgato.nev,
+                    hallgato.pontszam,
+                    hallgato.aktiv
+                ])
+
 
 if __name__ == "__main__":
     tanfolyam = Tanfolyam("Python alapok")

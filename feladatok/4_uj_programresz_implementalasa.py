@@ -30,17 +30,32 @@ Implementaland fuggvenyek:
 """
 import json
 def beolvas_ertekelesek(fajlnev):
+    with open(fajlnev, "r", encoding="utf-8") as f:
+        adatok = json.load(f)
+    return adatok
 
-     # TODO: valositsd meg
-    raise NotImplementedError("A fuggveny meg nincs implementalva.")
 
 def validalt_ertekeles(ertek):
-    # TODO: valositsd meg (dobjon ValueError-t ha nem 1-5 kozotti egesz szam az ertek)
-    raise NotImplementedError("A fuggveny meg nincs implementalva.")
+    if not isinstance(ertek, int):
+        raise ValueError("Egész számnak kell lennie.")
+
+    if ertek < 1 or ertek > 5:
+        raise ValueError("1 és 5 között kell lennie.")
+    return True
+
 
 def termek_atlag(rekord):
-    # TODO: valositsd meg, hasznald a validalt_ertekeles()-t
-    raise NotImplementedError("A fuggveny meg nincs implementalva.")
+    ertekelesek = rekord["ertekelesek"]
+    osszeg = 0
+    db = 0
+    for ertek in ertekelesek:
+        validalt_ertekeles(ertek)
+        osszeg += ertek
+        db += 1
+    if db == 0:
+        return 0
+    return osszeg / db
+
 
 def kategoriak_atlagai(rekordok):
     # TODO: valositsd meg
