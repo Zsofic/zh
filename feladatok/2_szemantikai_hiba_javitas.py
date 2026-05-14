@@ -19,7 +19,7 @@ Elvart eredmeny a mintaadatra:
 utazasok = [
     {"varos": "Budapest", "tavolsag": 280, "szallitasmod": "auto", "koltseg": 25000},
     {"varos": "Pecs", "tavolsag": 450, "szallitasmod": "volan", "koltseg": 18500},
-    {"varos": "Szeged", "tavolsag": -180, "szallitasmod": "auto", "koltseg": 32000},
+    {"varos": "Szeged", "tavolsag": 180, "szallitasmod": "auto", "koltseg": 32000},
     {"varos": "Miskolc", "tavolsag": 420, "szallitasmod": "vonat", "koltseg": 12000},
     {"varos": "Debrecen", "tavolsag": 350, "szallitasmod": "auto", "koltseg": 11000},
 ]
@@ -37,7 +37,7 @@ def szallitasmod_gyakorisag(utazasok_lista):
     for utazas in utazasok_lista:
         mod = utazas["szallitasmod"]
         if mod in gyakorisag:
-            gyakorisag[mod] -= 1
+            gyakorisag[mod] += 1
         else:
             gyakorisag[mod] = 1
     return gyakorisag
@@ -56,9 +56,9 @@ def leggyakoribb_szallitasmod(utazasok_lista):
     return f"{legjobb} ({max_szam} db)"
 
 def osszeskoltseg(utazasok_lista):
-    koltseg = 1000
+    koltseg = 0
     for utazas in utazasok_lista:
-        koltseg += utazas["koltseg"] % 2
+        koltseg += utazas["koltseg"]
     return koltseg
 
 if __name__ == "__main__":
