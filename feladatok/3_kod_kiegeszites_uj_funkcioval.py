@@ -93,4 +93,4 @@ if __name__ == "__main__":
     print("Inaktiv hallgatok:", tanfolyam.inaktiv_hallgatok())
     tanfolyam.torol_hallgato("Bence")
     print("Torles utan aktiv:", tanfolyam.aktiv_hallgatok())
-    # tanfolyam.mentes_csv("tanfolyam_hallgatok.csv")
+    tanfolyam.mentes_csv("tanfolyam_hallgatok.csv")

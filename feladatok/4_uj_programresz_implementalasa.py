@@ -58,12 +58,44 @@ def termek_atlag(rekord):
 
 
 def kategoriak_atlagai(rekordok):
-    # TODO: valositsd meg
-    raise NotImplementedError("A fuggveny meg nincs implementalva.")
+    kategoriak = {}
+    for r in rekordok:
+        kat = r["kategoria"]
+        atlag = termek_atlag(r)
+
+        if kat not in kategoriak:
+            kategoriak[kat] = []
+        kategoriak[kat].append(atlag)
+
+    return {
+        kat: sum(lista) / len(lista)
+        for kat, lista in kategoriak.items()
+    }
 
 def mentes_osszefoglalo_json(rekordok, fajlnev):
-    # TODO: valositsd meg
-     raise NotImplementedError("A fuggveny meg nincs implementalva.")
+    termek_atlagok = {}
+    kategoriak = {}
+
+    for r in rekordok:
+        termek_atlagok[r["termek"]] = termek_atlag(r)
+        kat = r["kategoria"]
+        if kat not in kategoriak:
+            kategoriak[kat] = []
+        kategoriak[kat].append(termek_atlag(r))
+
+    kategoriak_atlag = {
+        k: sum(v) / len(v) for k, v in kategoriak.items()
+    }
+    legjobb = max(termek_atlagok, key=termek_atlagok.get)
+
+    osszegzes = {
+        "termekek_szama": len(rekordok),
+        "termek_atlagok": termek_atlagok,
+        "kategoriak_atlagai": kategoriak_atlag,
+        "legjobb_termek": legjobb
+    }
+    with open(fajlnev, "w", encoding="utf-8") as f:
+        json.dump(osszegzes, f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
     minta_rekordok = [
@@ -73,6 +105,6 @@ if __name__ == "__main__":
         {"termek": "Tablet B", "kategoria": "elektronika", "ertekelesek": [3, 4, 4]},
     ]
     # A TODO-k megoldasa utan ezek hasznalhatok tesztelesre:
-    # print("Laptop A atlaga:", termek_atlag(minta_rekordok[0]))
-    # print("Kategoriak atlagai:", kategoriak_atlagai(minta_rekordok))
-    # mentes_osszefoglalo_json(minta_rekordok, "termek_osszefoglalo.json")
+    print("Laptop A atlaga:", termek_atlag(minta_rekordok[0]))
+    print("Kategoriak atlagai:", kategoriak_atlagai(minta_rekordok))
+    mentes_osszefoglalo_json(minta_rekordok, "termek_osszefoglalo.json")
