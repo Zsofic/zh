@@ -1,4 +1,4 @@
-Nem voltam bejelentkezve a ChatGPZ-be így nem tudott .md fájlt létrehozni se a linket megosztani nem bírom, ezért bemásolgattam a kérdéseket.
+Nem voltam bejelentkezve a ChatGPT-be így nem tudott .md fájlt létrehozni se a linket megosztani nem bírom, ezért bemásolgattam a kérdéseket.
 ChatGPT promptok, amiket használtam a megoldás során:
 
 1. avitas.py", line 18
